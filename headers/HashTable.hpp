@@ -15,7 +15,7 @@
 #include <vector>
 
 
-#include "../Math/Math.hpp"
+#include "Math.hpp"
 
 namespace RubenSystems {
 	namespace RSmIDX {

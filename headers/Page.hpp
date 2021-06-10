@@ -13,19 +13,19 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../Indexable.h"
+#include "IndexData.h"
 
 
 namespace RubenSystems {
 	namespace RSmIDX {
-		class Page : public Indexable {
+		class Page {
 			public:
 			
 				Page() = default;
 			
-				Page(const std::string & id, std::unordered_map<std::string, std::string> & metadata, const Math::Matrix & embedding);
+				Page(const std::string & id, const std::unordered_map<std::string, std::string> & metadata, const Math::Matrix & embedding);
 			
-				IndexData data() override;
+				IndexData data();
 			
 				template <class A>
 				void serialize( A & ar ) {

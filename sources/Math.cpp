@@ -5,7 +5,7 @@
 //  Created by Ruben Ticehurst-James on 07/06/2021.
 //
 
-#include "Math.hpp"
+#include "../headers/Math.hpp"
 #include <sstream>
 
 namespace RubenSystems {

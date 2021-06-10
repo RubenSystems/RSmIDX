@@ -1,14 +1,33 @@
 CPPFLAGS += -std=c++17
-SOURCES = $(shell find . -name "*.cpp")
-OBJECTS = $(SOURCES:%.cpp=%.o)
-TARGET = graphite
+CC = clang++
+
+
+SOURCES=$(wildcard sources/*.cpp)
+OBJECTS=$(patsubst %.cpp, %.o, $(SOURCES))
+TARGET = graphite`python3-config --extension-suffix`
 
 .PHONY: all
-all: $(TARGET)
+all: $(OBJECTS) binding.o
 
-$(TARGET): $(OBJECTS)
-	$(LINK.cpp) $^ $(LDLIBS) -o $@
+# $(TARGET): $(OBJECTS)
+# 	$(CC) $(CPPFLAGS) $^ $(LDLIBS) -o $@
+#old $(LINK.cpp) $^ $(LDLIBS) -o $@
+
+# $(TARGET): $(OBJECTS)
+# 	$(CC) $(CFLAGS) $^ $(LDLIBS) -o $@
+
+# $(SOURCES):
+	
+binding.o:
+	c++ -O3 -Wall -shared -std=c++17 -undefined dynamic_lookup `python3 -m pybind11 --includes` Binding.cpp -o rsmidx`python3-config --extension-suffix` $(OBJECTS) 
+
+# $(OBJECTS): sources/%.o : sources/%.cpp
+# 	$(CC) $(CPPFLAGS) -c $< $(LIB_PATH) $(LIBS) -o $@
+
+
+
+	
 
 .PHONY: clean
 clean:
-	rm -f $(TARGET) $(OBJECTS)
+	rm -f $(OBJECTS)

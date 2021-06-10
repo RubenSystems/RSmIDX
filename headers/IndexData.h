@@ -8,7 +8,7 @@
 #ifndef IndexData_h
 #define IndexData_h
 
-#include "../Helpers/Math/Math.hpp"
+#include "Math.hpp"
 #include <string>
 #include <unordered_map>
 

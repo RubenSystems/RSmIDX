@@ -5,7 +5,7 @@
 //  Created by Ruben Ticehurst-James on 08/05/2021.
 //
 
-#include "LSH.hpp"
+#include "../headers/LSH.hpp"
 #include <fstream>
 #include <unordered_set>
 #include <thread>

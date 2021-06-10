@@ -11,13 +11,11 @@
 #include <stdio.h>
 
 
-#include "IndexObjects/Indexable.h"
 #include "IndexConfig.h"
+#include "IndexData.h"
 
-
-#include "Helpers/LSH/LSH.hpp"
+#include "LSH.hpp"
 #include <unordered_map>
-#include <tuple>
 #include <vector>
 #include <queue>
 

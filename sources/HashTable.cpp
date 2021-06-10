@@ -5,7 +5,7 @@
 //  Created by Ruben Ticehurst-James on 06/05/2021.
 //
 
-#include "HashTable.hpp"
+#include "../headers/HashTable.hpp"
 
 #include <fstream>
 #include <iostream>

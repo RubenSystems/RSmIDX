@@ -5,22 +5,22 @@
 //  Created by Ruben Ticehurst-James on 18/05/2021.
 //
 
-#include "Index.hpp"
+#include "../headers/Index.hpp"
 
 #include <fstream>
 
-#include "../../Functionality/Libraries/cereal/archives/binary.hpp"
+#include "../Libraries/cereal/archives/binary.hpp"
 
-#include "../../Functionality/Libraries/cereal/types/unordered_map.hpp"
-#include "../../Functionality/Libraries/cereal/types/vector.hpp"
-#include "../../Functionality/Libraries/cereal/types/memory.hpp"
-#include "../../Functionality/Libraries/cereal/types/string.hpp"
-#include "../../Functionality/Libraries/cereal/types/tuple.hpp"
-#include "../../Functionality/Libraries/cereal/types/optional.hpp"
-#include "../../Functionality/Libraries/cereal/types/queue.hpp"
+#include "../Libraries/cereal/types/unordered_map.hpp"
+#include "../Libraries/cereal/types/vector.hpp"
+#include "../Libraries/cereal/types/memory.hpp"
+#include "../Libraries/cereal/types/string.hpp"
+#include "../Libraries/cereal/types/tuple.hpp"
+#include "../Libraries/cereal/types/optional.hpp"
+#include "../Libraries/cereal/types/queue.hpp"
 
 
-#include "../../Functionality/FileHelpers/FileHelpers.hpp"
+#include "../headers/FileHelpers.hpp"
 
 namespace RubenSystems {
 	namespace RSmIDX{

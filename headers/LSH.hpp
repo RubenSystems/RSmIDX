@@ -9,7 +9,7 @@
 #define LSH_hpp
 
 #include <stdio.h>
-#include "../HashTable/HashTable.hpp"
+#include "HashTable.hpp"
 #include <mutex>
 
 
