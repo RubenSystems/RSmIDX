@@ -13,8 +13,8 @@
 
 #include "IndexConfig.h"
 #include "IndexData.h"
-
 #include "LSH.hpp"
+
 #include <unordered_map>
 #include <vector>
 #include <queue>
@@ -53,13 +53,17 @@ namespace RubenSystems {
 				
 			
 			private:
+				
 				//MARK: Config
 				IndexConfig config;
 			
 				//MARK: Storage
 				LSH similarityindex;
-				std::unordered_map<std::string, std::tuple<T, std::vector<std::tuple<int, std::string>>>> datastore;
 				std::queue<std::string> deletequeue;
+
+				//MARK: Datastore
+				typedef std::tuple<T, std::vector<std::tuple<int, std::string>>> DatastoreInfo;
+				std::unordered_map<std::string, DatastoreInfo> datastore;
 				
 				//MARK: InvertedIndex
 				typedef std::unordered_map<std::string, std::vector<std::string>> SingleInvertedIndex;

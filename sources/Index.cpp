@@ -8,7 +8,6 @@
 #include "../headers/Index.hpp"
 
 #include <fstream>
-
 #include "../Libraries/cereal/archives/binary.hpp"
 
 #include "../Libraries/cereal/types/unordered_map.hpp"
@@ -60,10 +59,10 @@ namespace RubenSystems {
 		void Index<T>::remove(const std::string id) {
 			if (this->datastore.find(id) != this->datastore.end()){
 				auto item = this->datastore[id];
-				IndexData itemData = item.data();
-				this->lsh.remove(id, std::get<1>(item));
+				IndexData itemData = std::get<0>(item).data();
+				this->similarityindex.remove(id, std::get<1>(item));
 				
-				for (auto & i : this->indexFields) {
+				for (auto & i : this->config.indexFields) {
 					auto key = itemData.metadata.at(i);
 					auto & values = this->secondaryInvertedIndex[i][key];
 					auto it = std::find(values.begin(), values.end(), itemData.uid);
@@ -80,21 +79,21 @@ namespace RubenSystems {
 		//MARK: Vector manipulation
 		template <class T>
 		std::vector<T> Index<T>::getRelated(const Math::Matrix & matrix) {
-			std::vector<std::string> ids = this->lsh.get(matrix);
-			std::vector<std::pair< T, double >> unorderedItems;
+			std::vector<std::string> ids = this->similarityindex.get(matrix);
+			std::vector<std::pair< DatastoreInfo, double >> unorderedItems;
 			std::vector<T> items;
 			
 			for(auto & i : ids) {
 				auto item = this->datastore[i];
-				IndexData itemData = item.data();
-				unorderedItems.push_back(item, Math::cosineSimilarity(matrix, itemData.matrix));
+				IndexData itemData = std::get<0>(item).data();
+				unorderedItems.push_back({item, Math::cosineSimilarity(matrix, itemData.matrix)});
 			}
 			
-			std::sort(unorderedItems.begin(), unorderedItems.end(), [](std::pair< T, double > a, std::pair< T, double > b) -> bool{
+			std::sort(unorderedItems.begin(), unorderedItems.end(), [](std::pair< DatastoreInfo, double > a, std::pair< DatastoreInfo, double > b) -> bool{
 				return  std::get<1>(a) > std::get<1>(b);
 			});
 			for (auto & i : unorderedItems) {
-				items.push_back(i);
+				items.push_back(std::get<0>(std::get<0>(i)));
 			}
 			
 			return items;
@@ -104,7 +103,12 @@ namespace RubenSystems {
 		//MARK: Secondary key manipulation
 		template <class T>
 		std::vector<T> Index<T>::getWhere(const std::string & key, const std::string & equalTo) {
-			return this->secondaryInvertedIndex[key][equalTo];
+			auto ids = this->secondaryInvertedIndex[key][equalTo];
+			std::vector<T> objects;
+			for (auto & i : ids) {
+				objects.push_back(std::get<0>(this->datastore[i]));
+			}
+			return objects;
 		}
 
 
@@ -120,7 +124,7 @@ namespace RubenSystems {
 
 				unarchiver(*this);
 			} else {
-				this->lshIndex.populate();
+				this->similarityindex.populate();
 			}
 			
 		}
