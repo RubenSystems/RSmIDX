@@ -48,7 +48,7 @@ namespace RubenSystems {
 			}
 			
 			//check if delete queue is too big, if so delete item
-			if (this->deletequeue.size > this->config.size) {
+			if (this->deletequeue.size() > this->config.size()) {
 				auto first = this->deletequeue.front();
 				this->deletequeue.pop();
 				this->remove(first);
