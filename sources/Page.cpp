@@ -15,7 +15,7 @@ namespace RubenSystems {
 			metadata(metadata),
 			embedding(embedding) {}
 
-		IndexData Page::data() {
+		IndexData Page::data() const{
 			return {id, metadata, embedding};
 		}
 	}

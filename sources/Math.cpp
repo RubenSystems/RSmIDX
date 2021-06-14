@@ -7,7 +7,7 @@
 
 #include "../headers/Math.hpp"
 #include <sstream>
-
+#include <iostream>
 namespace RubenSystems {
 	namespace Math {
 		Random randomGenerator;
@@ -21,14 +21,15 @@ namespace RubenSystems {
 		}
 	
 	
-		Matrix generateProjections(int columns, int rows) {
+		Matrix generateProjections(int rows, int columns) {
 			Matrix projections;
 			
 			{
 				for(int i = 0; i < rows; i ++) {
 					std::vector<double> x;
 					for(int c = 0; c < columns; c++) {
-						x.push_back(randomGenerator.generate());
+						auto val = randomGenerator.generate();
+						x.push_back(val);
 					}
 					projections.push_back(x);
 				}

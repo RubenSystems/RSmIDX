@@ -48,7 +48,7 @@ namespace RubenSystems {
 			}
 			
 			//check if delete queue is too big, if so delete item
-			if (this->deletequeue.size() > this->config.size()) {
+			if (this->deletequeue.size() > this->config.size) {
 				auto first = this->deletequeue.front();
 				this->deletequeue.pop();
 				this->remove(first);
@@ -78,7 +78,7 @@ namespace RubenSystems {
 
 		//MARK: Vector manipulation
 		template <class T>
-		std::vector<T> Index<T>::getRelated(const Math::Matrix & matrix) {
+		std::vector<T> Index<T>::getSimilar(const Math::Matrix & matrix) {
 			std::vector<std::string> ids = this->similarityindex.get(matrix);
 			std::vector<std::pair< DatastoreInfo, double >> unorderedItems;
 			std::vector<T> items;
@@ -86,6 +86,7 @@ namespace RubenSystems {
 			for(auto & i : ids) {
 				auto item = this->datastore[i];
 				IndexData itemData = std::get<0>(item).data();
+				std::cout << itemData.uid << Math::cosineSimilarity(matrix, itemData.matrix) << "\n";
 				unorderedItems.push_back({item, Math::cosineSimilarity(matrix, itemData.matrix)});
 			}
 			

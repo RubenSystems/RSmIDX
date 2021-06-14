@@ -38,6 +38,7 @@ namespace RubenSystems {
 			private:
 			
 				std::string getHash(const Math::Matrix & input);
+				int boolConv(std::vector<bool> bools);
 			
 				int hashSize;
 				int dimensions;

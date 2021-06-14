@@ -15,7 +15,7 @@ namespace RubenSystems {
 		void HashTable::generateProjections(int hashSize, int dimensions) {
 			this->hashSize = hashSize;
 			this->dimensions = dimensions;
-			this->projections = Math::generateProjections(dimensions, hashSize);
+			this->projections = Math::generateProjections(hashSize, dimensions);
 		}
 
 		std::vector<std::string> HashTable::get(const Math::Matrix & input) {
@@ -39,14 +39,29 @@ namespace RubenSystems {
 
 
 		std::string HashTable::getHash(const Math::Matrix & input) {
-			std::string hash;
+			
 			auto values = Math::dot(input, Math::transpose(this->projections));
+			std::vector<bool> bools;
+
 			for (auto & i : values[0]) {
-				hash += (i > 0) ? '1' : '0';
+				bools.push_back((i > 0) ? true : false);
 			}
-			return hash;
+
+
+
+			return std::to_string(this->boolConv(bools));
 		}
 
+
+		int HashTable::boolConv(std::vector<bool> bools) {
+			char y = 0;
+			for(int i = 0; i < bools.size(); i ++) {
+				if (bools[i]) {
+					y += (1 << i);
+				}
+			}
+			return y;
+		}
 	}
 }
 

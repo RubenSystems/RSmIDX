@@ -25,7 +25,7 @@ namespace RubenSystems {
 			
 				Page(const std::string & id, const std::unordered_map<std::string, std::string> & metadata, const Math::Matrix & embedding);
 			
-				IndexData data();
+				IndexData data() const;
 			
 				template <class A>
 				void serialize( A & ar ) {
