@@ -80,7 +80,7 @@ namespace RubenSystems {
 		template <class T>
 		std::vector<T> Index<T>::getSimilar(const Math::Matrix & matrix) {
 			std::vector<std::string> ids = this->similarityindex.get(matrix);
-			std::vector<std::pair< DatastoreInfo, double >> unorderedItems;
+			std::vector<std::pair< DatastoreInfo<T>, double >> unorderedItems;
 			std::vector<T> items;
 			
 			for(auto & i : ids) {
@@ -90,7 +90,7 @@ namespace RubenSystems {
 				unorderedItems.push_back({item, Math::cosineSimilarity(matrix, itemData.matrix)});
 			}
 			
-			std::sort(unorderedItems.begin(), unorderedItems.end(), [](std::pair< DatastoreInfo, double > a, std::pair< DatastoreInfo, double > b) -> bool{
+			std::sort(unorderedItems.begin(), unorderedItems.end(), [](std::pair< DatastoreInfo<T>, double > a, std::pair< DatastoreInfo<T>, double > b) -> bool{
 				return  std::get<1>(a) > std::get<1>(b);
 			});
 			for (auto & i : unorderedItems) {

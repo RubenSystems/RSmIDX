@@ -18,10 +18,18 @@
 #include <unordered_map>
 #include <vector>
 #include <queue>
+#include <tuple>
 
 
 namespace RubenSystems {
 	namespace RSmIDX {
+
+		//Typedefs for storage
+		template <typename T>
+		using DatastoreInfo = std::tuple<T, std::vector<std::tuple<int, std::string>>> ;
+		using SingleInvertedIndex = std::unordered_map<std::string, std::vector<std::string>> ;
+		using MultipleInvertedIndex = std::unordered_map<std::string, SingleInvertedIndex> ;
+
 		template <class T>
 		class Index {
 			
@@ -51,7 +59,7 @@ namespace RubenSystems {
 				template <class A>
 				void serialize(A & archive){ archive(similarityindex, datastore, deletequeue, secondaryInvertedIndex); }
 				
-			
+
 			private:
 				
 				//MARK: Config
@@ -62,14 +70,13 @@ namespace RubenSystems {
 				std::queue<std::string> deletequeue;
 
 				//MARK: Datastore
-				typedef std::tuple<T, std::vector<std::tuple<int, std::string>>> DatastoreInfo;
-				std::unordered_map<std::string, DatastoreInfo> datastore;
+				
+				std::unordered_map<std::string, DatastoreInfo<T>> datastore;
 				
 				//MARK: InvertedIndex
-				typedef std::unordered_map<std::string, std::vector<std::string>> SingleInvertedIndex;
-				typedef std::unordered_map<std::string, SingleInvertedIndex> MultipleInvertedIndex;
 				MultipleInvertedIndex secondaryInvertedIndex;
 			
+
 				
 		};
 	}
