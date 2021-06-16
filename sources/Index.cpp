@@ -43,8 +43,11 @@ namespace RubenSystems {
 			this->deletequeue.push(data.uid);
 			
 			for (auto & i : this->config.indexFields) {
-				auto key = data.metadata.at(i);
-				this->secondaryInvertedIndex[i][key].push_back(data.uid);
+				if (data.metadata.find(i) != data.metadata.end()){
+					auto key = data.metadata.at(i);
+					this->secondaryInvertedIndex[i][key].push_back(data.uid);
+				}
+				
 			}
 			
 			//check if delete queue is too big, if so delete item
