@@ -9,6 +9,7 @@
 #include <fstream>
 #include <unordered_set>
 #include <thread>
+#include <iostream>
 
 namespace RubenSystems {
 	namespace RSmIDX{
@@ -26,9 +27,10 @@ namespace RubenSystems {
 		std::vector<std::tuple<int, std::string>> LSH::set(const Math::Matrix & embedding, const std::string & id) {
 			std::lock_guard<std::mutex> lock (this->threadGuard);
 			std::vector<std::tuple<int, std::string>> lookupTable;
-
+			
 			for(int i = 0; i < this->tables.size(); i ++) {
 				std::string hashKey = this->tables[i].set(embedding, id);
+
 				lookupTable.push_back(std::make_tuple(i, hashKey));
 			}
 			return lookupTable;

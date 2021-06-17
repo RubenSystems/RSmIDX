@@ -38,22 +38,15 @@ namespace RubenSystems {
 			return projections;
 		}
 
-		Matrix dot(const Matrix & a, const Matrix & b) {
-			Matrix result;
-			
-			int newColumns = (int)a.size();
-			int newRows = (int)b[0].size();
-			
-			result = Matrix(newColumns, std::vector<double>(newRows, 0));
-			
+		std::vector<double> dot(const Matrix & a, const std::vector<double> & b) {
+			std::vector<double> result;
 			for(int i = 0; i < a.size(); i++) {
-				for (int j = 0; j < b[0].size(); j++) {
-					for (int k = 0; k < b.size(); k++) {
-						result[i][j] += a[i][k] * b[k][j];
-					}
+				double sum = 0;
+				for (int c = 0; c < a[i].size(); c ++) {
+					sum += (a[i][c] * b[c]);
 				}
+				result.push_back(sum);
 			}
-			
 			return result;
 		}
 

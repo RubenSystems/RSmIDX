@@ -17,7 +17,7 @@
 #include "../Libraries/cereal/types/tuple.hpp"
 #include "../Libraries/cereal/types/optional.hpp"
 #include "../Libraries/cereal/types/queue.hpp"
-
+#include <iostream>
 
 #include "../headers/FileHelpers.hpp"
 
@@ -47,9 +47,7 @@ namespace RubenSystems {
 					auto key = data.metadata.at(i);
 					this->secondaryInvertedIndex[i][key].push_back(data.uid);
 				}
-				
 			}
-			
 			//check if delete queue is too big, if so delete item
 			if (this->deletequeue.size() > this->config.size) {
 				auto first = this->deletequeue.front();

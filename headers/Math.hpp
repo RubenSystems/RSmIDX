@@ -22,7 +22,7 @@ namespace RubenSystems {
 
 		Matrix generateProjections(int columns, int rows);
 
-		Matrix dot(const Matrix & a, const Matrix & b);
+		std::vector<double> dot(const Matrix & a, const std::vector<double> & b);
 
 		Matrix transpose(const Matrix & a);
 
