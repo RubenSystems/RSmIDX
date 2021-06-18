@@ -87,7 +87,6 @@ namespace RubenSystems {
 			for(auto & i : ids) {
 				auto item = this->datastore[i];
 				IndexData itemData = std::get<0>(item).data();
-				std::cout << itemData.uid << Math::cosineSimilarity(matrix, itemData.matrix) << "\n";
 				unorderedItems.push_back({item, Math::cosineSimilarity(matrix, itemData.matrix)});
 			}
 			

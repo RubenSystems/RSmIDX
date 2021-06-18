@@ -39,24 +39,21 @@ namespace RubenSystems {
 
 
 		std::string HashTable::getHash(const Math::Matrix & input) {
-			int key = 0;
+			std::string key;
+
 			auto values = Math::dot(this->projections, input[0]);
-			for (int i = 0; i < values.size(); i ++) {
-				if (values[i] > 0) {
-					key += (1 << i);
-				}
-			}
-			
-			// auto values = Math::dot(this->projections, input);
-			// std::vector<bool> bools;
-
-			// for (auto & i : values[0]) {
-			// 	bools.push_back((i > 0) ? true : false);
+			// for (int i = 0; i < values.size(); i ++) {
+			// 	if (values[i] > 0) {
+			// 		key += (1 << i);
+			// 	}
 			// }
+			
+			
+			for(auto & i : values) {
+				key.push_back(i > 0 ? '0' : '1');
+			}
 
-
-
-			return std::to_string(key);
+			return key;
 		}
 	}
 }
