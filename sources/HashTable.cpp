@@ -50,7 +50,7 @@ namespace RubenSystems {
 			
 			
 			for(auto & i : values) {
-				key.push_back(i > 0 ? '0' : '1');
+				key.push_back(i > 0 ? '1' : '0');
 			}
 
 			return key;
