@@ -41,6 +41,8 @@ namespace RubenSystems {
 				T getItem(const std::string & id);
 			
 				void add(const T & page);
+
+				void update(const std::string & id, const std::unordered_map<std::string, std::string> & newData);
 			
 				void remove(const std::string id);
 			

@@ -32,9 +32,11 @@ namespace RubenSystems {
 						ar( id, metadata, embedding );
 				}
 
+				std::unordered_map<std::string, std::string> metadata;
+
 			private:
 				std::string id;
-				std::unordered_map<std::string, std::string> metadata;
+				
 				Math::Matrix embedding;
 			
 

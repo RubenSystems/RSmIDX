@@ -55,6 +55,15 @@ namespace RubenSystems {
 				this->remove(first);
 			}
 		}
+		
+		template <class T>
+		void Index<T>::update(const std::string & id, const std::unordered_map<std::string, std::string> & newData) {
+			auto & item = std::get<0>(this->datastore[id]).metadata;
+			for(auto & i : newData) {
+				item[i.first] = i.second;
+			}
+		}
+
 
 		template <class T>
 		void Index<T>::remove(const std::string id) {

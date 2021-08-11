@@ -35,6 +35,7 @@ PYBIND11_MODULE(rsmidx, m) {
 	.def(py::init<const idx::IndexConfig &>())
 	.def("getItem", &idx::Index<idx::Page>::getItem)
 	.def("add", &idx::Index<idx::Page>::add)
+	.def("update", &idx::Index<idx::Page>::update)
 	.def("remove", &idx::Index<idx::Page>::remove)
 	.def("getSimilar", &idx::Index<idx::Page>::getSimilar)
 	.def("getWhere", &idx::Index<idx::Page>::getWhere)
