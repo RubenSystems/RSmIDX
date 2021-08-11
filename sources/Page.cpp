@@ -18,5 +18,9 @@ namespace RubenSystems {
 		IndexData Page::data() const{
 			return {id, metadata, embedding};
 		}
+
+		std::unordered_map<std::string, std::string> & Page::getMetadata() {
+			return this->metadata;
+		}
 	}
 }
