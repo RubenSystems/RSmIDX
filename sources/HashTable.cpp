@@ -29,11 +29,14 @@ namespace RubenSystems {
 
 		std::string HashTable::set(const Math::Matrix & input, std::string item) {
 			auto hash = this->getHash(input);
-			if (this->hashTable.find(hash) == this->hashTable.end()) {
-				this->hashTable[hash].push_back(item);
-			} else {
-				this->hashTable[hash] = std::vector<std::string>({ item });
-			}
+			this->hashTable[hash].push_back(item);
+			// if (this->hashTable.find(hash) == this->hashTable.end()) {
+				
+			// 	std::cout << "pushback\n";
+			// } else {
+			// 	this->hashTable[hash] = std::vector<std::string>({ item });
+			// 	std::cout << "forward\n";
+			// }
 			return hash;
 		}
 
@@ -42,17 +45,13 @@ namespace RubenSystems {
 			std::string key;
 
 			auto values = Math::dot(this->projections, input[0]);
-			// for (int i = 0; i < values.size(); i ++) {
-			// 	if (values[i] > 0) {
-			// 		key += (1 << i);
-			// 	}
-			// }
+
+
 			
 			
 			for(auto & i : values) {
 				key.push_back(i > 0 ? '1' : '0');
 			}
-
 			return key;
 		}
 	}

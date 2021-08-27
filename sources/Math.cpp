@@ -34,7 +34,6 @@ namespace RubenSystems {
 					projections.push_back(x);
 				}
 			}
-			
 			return projections;
 		}
 
