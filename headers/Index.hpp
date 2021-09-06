@@ -77,6 +77,8 @@ namespace RubenSystems {
 				
 				//MARK: InvertedIndex
 				MultipleInvertedIndex secondaryInvertedIndex;
+
+				void indexData(const std::string & id, const std::unordered_map<std::string, std::string> & newData);
 			
 
 				

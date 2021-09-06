@@ -23,6 +23,19 @@
 
 namespace RubenSystems {
 	namespace RSmIDX{
+
+
+		// FIXME: does not yet suppourt multiple calles, will result in multiple index placements increasing redundant space. 
+		template <class T>
+		void Index<T>::indexData(const std::string & id, const std::unordered_map<std::string, std::string> & newData) {
+			for (auto & i : this->config.indexFields) {
+				if (newData.find(i) != newData.end()){
+					auto key = newData.at(i);
+					this->secondaryInvertedIndex[i][key].push_back(id);
+				}
+			}
+		}
+			
 	
 		template <class T>
 		Index<T>::Index (const IndexConfig & config) :
@@ -32,22 +45,33 @@ namespace RubenSystems {
 		//MARK: Direct item manipulation
 		template <class T>
 		T Index<T>::getItem(const std::string & id) {
-			return std::get<0>(this->datastore[id]);
+			if (this->datastore.find(id) != this->datastore.end()) {
+				return std::get<0>(this->datastore[id]);
+			} else {
+				throw std::runtime_error("[error] - item does not exist");
+			}
 		}
 
 		template <class T>
 		void Index<T>::add(const T & item) {
 			IndexData data = item.data();
+			if (this->datastore.find(data.uid) != this->datastore.end()){
+				throw std::runtime_error("[log] - attempted to insert item with used uid, rehash.\n");
+				return;
+			}
+
+			
 			auto placedSlots = this->similarityindex.set(data.matrix, data.uid);
 			this->datastore.emplace(data.uid, std::make_tuple(item, placedSlots));
 			this->deletequeue.push(data.uid);
 			
-			for (auto & i : this->config.indexFields) {
+			this->indexData(data.uid, data.metadata);
+			/*for (auto & i : this->config.indexFields) {
 				if (data.metadata.find(i) != data.metadata.end()){
 					auto key = data.metadata.at(i);
 					this->secondaryInvertedIndex[i][key].push_back(data.uid);
 				}
-			}
+			}*/
 			//check if delete queue is too big, if so delete item
 			if (this->deletequeue.size() > this->config.size) {
 				auto first = this->deletequeue.front();
@@ -61,6 +85,7 @@ namespace RubenSystems {
 			for(auto & i : newData) {
 				std::get<0>(this->datastore[id]).metadata[i.first] = i.second;
 			}
+			this->indexData(id, newData);
 		}
 
 
