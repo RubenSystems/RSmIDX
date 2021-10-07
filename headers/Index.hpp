@@ -47,7 +47,7 @@ namespace RubenSystems {
 				void remove(const std::string id);
 			
 				//MARK: Vector manipulation
-				std::vector<T> getSimilar(const Math::Matrix & matrix);
+				std::vector<std::pair<T, double >> getSimilar(const Math::Matrix & matrix);
 				
 				//MARK: Secondary key manipulation
 				std::vector<T> getWhere(const std::string & key, const std::string & equalTo);
