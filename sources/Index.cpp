@@ -127,7 +127,7 @@ namespace RubenSystems {
 				return std::get<1>(a) > std::get<1>(b);
 			});
 			for (auto & i : unorderedItems) {
-				items.push_back({std::get<0>(std::get<0>(i)), std::get<1>(i)} );
+				items.push_back( {std::get<0>(std::get<0>(i)), std::get<1>(i)} );
 			}
 			
 			return items;
