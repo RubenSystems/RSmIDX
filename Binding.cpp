@@ -1,9 +1,11 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/operators.h>
 // Object includes 
 
 #include "headers/Page.hpp"
 #include "sources/Index.cpp"
+#include "headers/IndexCache.hpp"
 
 
 
@@ -42,4 +44,19 @@ PYBIND11_MODULE(rsmidx, m) {
 	.def("unarchive", &idx::Index<idx::Page>::unarchive)
 	.def("archive", &idx::Index<idx::Page>::archive);
 
+
+	py::class_<idx::IndexCache<idx::Page>>(m, "IndexCache")
+	.def(py::init<>())
+	// .def("__setitem__", &idx::IndexCache<idx::Page>::operator[])
+	// .def("__getitem__", &idx::IndexCache<idx::Page>::operator[]);
+	.def("__getitem__", &idx::IndexCache<idx::Page>::get)
+	.def("remove", &idx::IndexCache<idx::Page>::remove)
+	.def("__setitem__", &idx::IndexCache<idx::Page>::add);
 }
+
+
+
+
+
+
+
