@@ -44,14 +44,15 @@ PYBIND11_MODULE(rsmidx, m) {
 	.def("unarchive", &idx::Index<idx::Page>::unarchive)
 	.def("archive", &idx::Index<idx::Page>::archive);
 
+	m.def("index_ptr", &idx::index_ptr<idx::Page>, py::return_value_policy::reference);
 
-	py::class_<idx::IndexCache<idx::Page>>(m, "IndexCache")
+	py::class_< idx::IndexCache< idx::Index<idx::Page> > >(m, "IndexCache")
 	.def(py::init<>())
-	// .def("__setitem__", &idx::IndexCache<idx::Page>::operator[])
-	// .def("__getitem__", &idx::IndexCache<idx::Page>::operator[]);
-	.def("__getitem__", &idx::IndexCache<idx::Page>::get)
-	.def("remove", &idx::IndexCache<idx::Page>::remove)
-	.def("__setitem__", &idx::IndexCache<idx::Page>::add);
+	.def("__getitem__", &idx::IndexCache<idx::Index<idx::Page>>::get, py::return_value_policy::reference)
+	.def("remove", &idx::IndexCache<idx::Index<idx::Page>>::remove)
+	.def("loadIndex", &idx::IndexCache<idx::Index<idx::Page>>::loadIndex)
+	// .def("__setitem__", &idx::IndexCache<idx::Page>::add)
+	.def("__contains__", &idx::IndexCache<idx::Index<idx::Page>>::contains);
 }
 
 

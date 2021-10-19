@@ -113,10 +113,19 @@ namespace RubenSystems {
 		//MARK: Vector manipulation
 		template <class T>
 		std::vector<std::pair<T, double >> Index<T>::getSimilar(const Math::Matrix & matrix) {
+			std::cout << "h0" << std::endl;
 			std::vector<std::string> ids = this->similarityindex.get(matrix);
+			std::cout << "h1" << std::endl;
 			std::vector<std::pair< DatastoreInfo<T>, double >> unorderedItems;
 			std::vector<std::pair< T, double >> items;
 			
+
+			if (ids.empty()) {
+				std::cout << "h2" << std::endl;
+				return items;
+			}
+			std::cout << ids[0] << std::endl;
+
 			for(auto & i : ids) {
 				auto item = this->datastore[i];
 				IndexData itemData = std::get<0>(item).data();

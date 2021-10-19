@@ -57,7 +57,6 @@ namespace RubenSystems {
 				for(int i = 0; i < bucket.size(); i++) {
 					if (bucket[i] == itemId) {
 						bucket.erase(bucket.begin() + i);
-						return;
 					}
 				}
 			}
