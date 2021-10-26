@@ -63,7 +63,6 @@ namespace RubenSystems {
 			
 			auto placedSlots = this->similarityindex.set(data.matrix, data.uid);
 			this->datastore.emplace(data.uid, std::make_tuple(item, placedSlots));
-			this->deletequeue.push(data.uid);
 			
 			this->indexData(data.uid, data.metadata);
 			/*for (auto & i : this->config.indexFields) {
@@ -72,12 +71,6 @@ namespace RubenSystems {
 					this->secondaryInvertedIndex[i][key].push_back(data.uid);
 				}
 			}*/
-			//check if delete queue is too big, if so delete item
-			if (this->deletequeue.size() > this->config.size) {
-				auto first = this->deletequeue.front();
-				this->deletequeue.pop();
-				this->remove(first);
-			}
 		}
 		
 		template <class T>
@@ -113,18 +106,14 @@ namespace RubenSystems {
 		//MARK: Vector manipulation
 		template <class T>
 		std::vector<std::pair<T, double >> Index<T>::getSimilar(const Math::Matrix & matrix) {
-			std::cout << "h0" << std::endl;
 			std::vector<std::string> ids = this->similarityindex.get(matrix);
-			std::cout << "h1" << std::endl;
 			std::vector<std::pair< DatastoreInfo<T>, double >> unorderedItems;
 			std::vector<std::pair< T, double >> items;
 			
 
 			if (ids.empty()) {
-				std::cout << "h2" << std::endl;
 				return items;
 			}
-			std::cout << ids[0] << std::endl;
 
 			for(auto & i : ids) {
 				auto item = this->datastore[i];

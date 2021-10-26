@@ -16,11 +16,10 @@ namespace RubenSystems {
 	namespace RSmIDX {
 		//MARK: Config
 		struct IndexConfig {
-			IndexConfig(const std::string & filepath, int size, const std::vector<std::string> & indexFields, const std::tuple<int,int,int> & lshConfig ) :
-			filepath(filepath), size(size), indexFields(indexFields), lshConfig(lshConfig) {}
+			IndexConfig(const std::string & filepath, const std::vector<std::string> & indexFields, const std::tuple<int,int,int> & lshConfig ) :
+			filepath(filepath), indexFields(indexFields), lshConfig(lshConfig) {}
 
 			std::string filepath;
-			int size;
 			std::vector<std::string> indexFields;
 			std::tuple<int, int, int> lshConfig;
 			

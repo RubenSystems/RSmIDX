@@ -29,7 +29,7 @@ PYBIND11_MODULE(rsmidx, m) {
 
 	//Bindings for IndexConfig
 	py::class_<idx::IndexConfig>(m, "IndexConfig")
-	.def(py::init<const std::string &, int, const std::vector<std::string> &, const std::tuple<int,int,int> &>());
+	.def(py::init<const std::string &, const std::vector<std::string> &, const std::tuple<int,int,int> &>());
 
 
 	//Bindings for Index

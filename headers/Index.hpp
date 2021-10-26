@@ -59,7 +59,7 @@ namespace RubenSystems {
 				void archive();
 			
 				template <class A>
-				void serialize(A & archive){ archive(similarityindex, datastore, deletequeue, secondaryInvertedIndex); }
+				void serialize(A & archive){ archive(similarityindex, datastore, secondaryInvertedIndex); }
 				
 
 			private:
@@ -69,7 +69,6 @@ namespace RubenSystems {
 			
 				//MARK: Storage
 				LSH similarityindex;
-				std::queue<std::string> deletequeue;
 
 				//MARK: Datastore
 				
