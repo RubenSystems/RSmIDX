@@ -29,11 +29,31 @@ namespace RubenSystems {
 		template <class T>
 		void Index<T>::indexData(const std::string & id, const std::unordered_map<std::string, std::string> & newData) {
 			for (auto & i : this->config.indexFields) {
-				if (newData.find(i) != newData.end()){
-					auto key = newData.at(i);
-					this->secondaryInvertedIndex[i][key].push_back(id);
+				if (newData.find(i.first) != newData.end()){
+					auto key = newData.at(i.first);
+					switch (i.second) {
+						case exact:
+
+							this->secondaryInvertedIndex[i.first][key].push_back(id);
+							break;
+
+						case sorted:
+							this->sortedIndex.insert(i.first, {id, std::stod(key)});
+							break; 
+					}
+					
 				}
 			}
+		}
+
+		template <class T>
+		std::vector<T> Index<T>::getComparitor(const std::string & key, GetOperator getType, double item) {
+			auto items = this->sortedIndex.get(key, getType, item);
+			std::vector<T> results;
+			for(auto & i : items) {
+				results.push_back(std::get<0>(this->datastore[std::get<0>(i)]));
+			}
+			return results;
 		}
 			
 	
@@ -89,15 +109,29 @@ namespace RubenSystems {
 				IndexData itemData = std::get<0>(item).data();
 				this->similarityindex.remove(id, std::get<1>(item));
 				
+				// IndexClearup
 				for (auto & i : this->config.indexFields) {
-					auto key = itemData.metadata.at(i);
-					auto & values = this->secondaryInvertedIndex[i][key];
-					auto it = std::find(values.begin(), values.end(), itemData.uid);
-						// If element was found
-					if (it != values.end()) {
-						int index = (int)(it - values.begin());
-						values.erase(values.begin() + index);
-					}
+					if (itemData.metadata.find(i.first) != itemData.metadata.end()) {
+						auto key = itemData.metadata.at(i.first);
+
+						switch (i.second) {
+							case exact: {
+								auto & values = this->secondaryInvertedIndex[i.first][key];
+									auto it = std::find(values.begin(), values.end(), itemData.uid);
+										// If element was found
+									if (it != values.end()) {
+										int index = (int)(it - values.begin());
+										values.erase(values.begin() + index);
+									}
+								}	
+
+								break;
+							case sorted: 
+								break;
+						}
+					} 
+					
+					
 				}
 				this->datastore.erase(id);
 			}

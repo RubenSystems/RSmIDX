@@ -15,15 +15,24 @@
 namespace RubenSystems {
 	namespace RSmIDX {
 		//MARK: Config
+
+		enum IndexType {
+			exact = 0,
+			sorted = 1
+			
+		};
+
 		struct IndexConfig {
-			IndexConfig(const std::string & filepath, const std::vector<std::string> & indexFields, const std::tuple<int,int,int> & lshConfig ) :
+			IndexConfig(const std::string & filepath, const std::vector<std::pair<std::string, IndexType> > & indexFields, const std::tuple<int,int,int> & lshConfig ) :
 			filepath(filepath), indexFields(indexFields), lshConfig(lshConfig) {}
 
 			std::string filepath;
-			std::vector<std::string> indexFields;
+			std::vector<std::pair<std::string, IndexType> > indexFields;
 			std::tuple<int, int, int> lshConfig;
 			
 		};
+
+		
 	}
 }
 

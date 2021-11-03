@@ -14,6 +14,7 @@
 #include "IndexConfig.h"
 #include "IndexData.h"
 #include "LSH.hpp"
+#include "SortedIndex.hpp"
 
 #include <unordered_map>
 #include <vector>
@@ -52,6 +53,9 @@ namespace RubenSystems {
 				//MARK: Secondary key manipulation
 				std::vector<T> getWhere(const std::string & key, const std::string & equalTo);
 				
+				//MARK: Sorted Key manipulation
+				std::vector<T> getComparitor(const std::string & key, GetOperator getType, double item);
+
 			
 				//MARK: archive
 				void unarchive();
@@ -59,7 +63,7 @@ namespace RubenSystems {
 				void archive();
 			
 				template <class A>
-				void serialize(A & archive){ archive(similarityindex, datastore, secondaryInvertedIndex); }
+				void serialize(A & archive){ archive(similarityindex, datastore, secondaryInvertedIndex,sortedIndex); }
 				
 
 			private:
@@ -71,11 +75,14 @@ namespace RubenSystems {
 				LSH similarityindex;
 
 				//MARK: Datastore
-				
 				std::unordered_map<std::string, DatastoreInfo<T>> datastore;
 				
 				//MARK: InvertedIndex
 				MultipleInvertedIndex secondaryInvertedIndex;
+
+				//MARK: SortedIndex 
+				SortedIndex sortedIndex;
+
 
 				void indexData(const std::string & id, const std::unordered_map<std::string, std::string> & newData);
 			

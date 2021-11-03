@@ -27,9 +27,20 @@ PYBIND11_MODULE(rsmidx, m) {
 	.def(py::init<const std::string &, const std::unordered_map<std::string, std::string> &, const RubenSystems::Math::Matrix &>())
 	.def("data", &idx::Page::data);
 
+
+	py::enum_<idx::IndexType>(m, "IndexType")
+    .value("SORTED", idx::IndexType::sorted)
+    .value("EXACT", idx::IndexType::exact)
+    .export_values();
+
+    py::enum_<GetOperator>(m, "GetOperator")
+    .value("GREATER", GetOperator::GREATER)
+    .value("LESS", GetOperator::LESS)
+    .export_values();
+
 	//Bindings for IndexConfig
 	py::class_<idx::IndexConfig>(m, "IndexConfig")
-	.def(py::init<const std::string &, const std::vector<std::string> &, const std::tuple<int,int,int> &>());
+	.def(py::init<const std::string &, const std::vector<std::pair<std::string, idx::IndexType> > &, const std::tuple<int,int,int> &>());
 
 
 	//Bindings for Index
@@ -41,6 +52,7 @@ PYBIND11_MODULE(rsmidx, m) {
 	.def("remove", &idx::Index<idx::Page>::remove)
 	.def("getSimilar", &idx::Index<idx::Page>::getSimilar)
 	.def("getWhere", &idx::Index<idx::Page>::getWhere)
+	.def("getWhere", &idx::Index<idx::Page>::getComparitor)
 	.def("unarchive", &idx::Index<idx::Page>::unarchive)
 	.def("archive", &idx::Index<idx::Page>::archive);
 
