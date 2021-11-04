@@ -51,7 +51,12 @@ namespace RubenSystems {
 			auto items = this->sortedIndex.get(key, getType, item);
 			std::vector<T> results;
 			for(auto & i : items) {
-				results.push_back(std::get<0>(this->datastore[std::get<0>(i)]));
+				if (this->datastore.find(std::get<0>(i)) != this->datastore.end()) {
+					results.push_back(std::get<0>(this->datastore[std::get<0>(i)]));
+				} else {
+					std::cout << std::get<0>(i) << " " << std::get<1>(i) << std::endl;
+				}
+				
 			}
 			return results;
 		}
