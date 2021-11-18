@@ -54,7 +54,7 @@ namespace RubenSystems {
 				if (this->datastore.find(std::get<0>(i)) != this->datastore.end()) {
 					results.push_back(std::get<0>(this->datastore[std::get<0>(i)]));
 				} else {
-					std::cout << std::get<0>(i) << " " << std::get<1>(i) << std::endl;
+					std::cout << "UNHAPPY";
 				}
 				
 			}
@@ -121,7 +121,7 @@ namespace RubenSystems {
 
 						switch (i.second) {
 							case exact: {
-								auto & values = this->secondaryInvertedIndex[i.first][key];
+									auto & values = this->secondaryInvertedIndex[i.first][key];
 									auto it = std::find(values.begin(), values.end(), itemData.uid);
 										// If element was found
 									if (it != values.end()) {
@@ -132,6 +132,7 @@ namespace RubenSystems {
 
 								break;
 							case sorted: 
+								this->sortedIndex.remove(i.first, id, std::stod(key) );
 								break;
 						}
 					} 
@@ -177,7 +178,12 @@ namespace RubenSystems {
 			auto ids = this->secondaryInvertedIndex[key][equalTo];
 			std::vector<T> objects;
 			for (auto & i : ids) {
-				objects.push_back(std::get<0>(this->datastore[i]));
+				if (this->datastore.find(i) != this->datastore.end()) {
+					objects.push_back(std::get<0>(this->datastore[i]));
+				} else {
+					std::cout << "UNHAPPY";
+				}
+				
 			}
 			return objects;
 		}
