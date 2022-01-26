@@ -18,7 +18,7 @@ namespace RubenSystems {
 
 		void LSH::populate() {
 			for(int i = 0; i < this->noTables; i++){
-				HashTable x;
+				HashTable x ;
 				x.generateProjections(hashSize, dimensions);
 				this->tables.push_back(x);
 			}
@@ -29,7 +29,7 @@ namespace RubenSystems {
 			std::vector<std::tuple<int, std::string>> lookupTable;
 			
 			for(int i = 0; i < this->tables.size(); i ++) {
-				std::string hashKey = this->tables[i].set(embedding, id);
+				auto hashKey = this->tables[i].set(embedding, id);
 
 				lookupTable.push_back(std::make_tuple(i, hashKey));
 			}

@@ -48,12 +48,13 @@ PYBIND11_MODULE(rsmidx, m) {
 	py::class_<idx::Index<idx::Page>>(m, "Index")
 	.def(py::init<const idx::IndexConfig &>())
 	.def("getItem", &idx::Index<idx::Page>::getItem)
-	.def("add", &idx::Index<idx::Page>::add)
-	.def("update", &idx::Index<idx::Page>::update)
-	.def("remove", &idx::Index<idx::Page>::remove)
 	.def("getSimilar", &idx::Index<idx::Page>::getSimilar)
 	.def("getWhere", &idx::Index<idx::Page>::getWhere)
 	.def("getWhere", &idx::Index<idx::Page>::getComparitor)
+	.def("getCandidates", &idx::Index<idx::Page>::getCandidates)
+	.def("add", &idx::Index<idx::Page>::add)
+	.def("update", &idx::Index<idx::Page>::update)
+	.def("remove", &idx::Index<idx::Page>::remove)
 	.def("unarchive", &idx::Index<idx::Page>::unarchive)
 	.def("archive", &idx::Index<idx::Page>::archive);
 

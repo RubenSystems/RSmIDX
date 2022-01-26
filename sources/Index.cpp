@@ -171,6 +171,27 @@ namespace RubenSystems {
 			return items;
 		}
 
+		template <class T>
+		std::vector<T> Index<T>::getCandidates(const Math::Matrix & matrix) {
+			std::vector<std::string> ids = this->similarityindex.get(matrix);
+			// std::unordered_map<std::string, bool> lookup;
+			std::vector< T > items;
+
+			for(auto & i : ids) {
+				auto item = this->datastore[i];
+				items.push_back(std::get<0>(item));
+				// if (lookup.find(i) == lookup.end()) {
+				// 	auto item = this->datastore[i];
+				// 	items.push_back(std::get<0>(item));
+				// 	lookup.emplace(i, true);
+				// }
+
+				
+			}
+
+			return items;
+		}
+
 
 		//MARK: Secondary key manipulation
 		template <class T>

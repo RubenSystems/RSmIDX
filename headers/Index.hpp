@@ -49,6 +49,8 @@ namespace RubenSystems {
 			
 				//MARK: Vector manipulation
 				std::vector<std::pair<T, double >> getSimilar(const Math::Matrix & matrix);
+
+				std::vector<T> getCandidates(const Math::Matrix & matrix);
 				
 				//MARK: Secondary key manipulation
 				std::vector<T> getWhere(const std::string & key, const std::string & equalTo);

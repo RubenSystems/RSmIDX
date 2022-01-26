@@ -3,7 +3,6 @@ from setuptools import setup
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 from pybind11.setup_helpers import ParallelCompile
 
-print(glob("sources/*.cpp"))
 
 ext_modules = [
     Pybind11Extension(

@@ -22,17 +22,20 @@ namespace RubenSystems {
 		class HashTable {
 			
 			public:
+
+
+
 				void generateProjections(int hashSize, int dimensions);
 				
 				std::vector<std::string> get(const Math::Matrix & input);
 			
-				std::vector<std::string> & operator[] (const std::string & hash);
+				std::vector<std::string> & operator[](const std::string & hash);
 			
 				std::string set(const Math::Matrix & input, std::string item);
 			
 				template <class A>
 				void serialize( A & ar ) {
-					ar (hashSize, dimensions, hashTable, projections);
+					ar (hashSize, dimensions, projections);
 				}
 			
 			private:

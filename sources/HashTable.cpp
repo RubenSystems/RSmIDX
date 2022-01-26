@@ -12,6 +12,10 @@
 
 namespace RubenSystems {
 	namespace RSmIDX {
+
+		
+
+
 		void HashTable::generateProjections(int hashSize, int dimensions) {
 			this->hashSize = hashSize;
 			this->dimensions = dimensions;
@@ -42,17 +46,13 @@ namespace RubenSystems {
 
 
 		std::string HashTable::getHash(const Math::Matrix & input) {
-			std::string key;
-
+			std::string hash;
 			auto values = Math::dot(this->projections, input[0]);
 
-
-			
-			
 			for(auto & i : values) {
-				key.push_back(i > 0 ? '1' : '0');
+				hash.push_back(i > 0 ? '1' : '0');
 			}
-			return key;
+			return hash;
 		}
 	}
 }
